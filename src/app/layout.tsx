@@ -10,8 +10,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Encurta Link",
-  description: "Encurtador de links",
+  title: "Simply Url - Reduza links",
+  description: "Simplifique seus links",
 };
 
 export default function RootLayout({
@@ -21,7 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={roboto.className}>{children}</body>
+      <body
+        className={
+          roboto.className +
+          " bg-gradient-to-tr from-theme-dark to-theme-dark-sec flex flex-col justify-center items-center"
+        }
+      >
+        {children}
+      </body>
     </html>
   );
 }
