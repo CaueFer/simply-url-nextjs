@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+    EXPAND HEIGHT ANIMATION 
+*/
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 650px;
+    opacity: 1;
+  }
+}
+
+.accordion-content {
+  overflow: hidden;
+  opacity: 0;
+  max-height: 0;
+  padding: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.accordion-content-expand {
+  animation: slideDown 3s ease-out forwards;
+}
+
+.accordion-content-collapse {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+}
