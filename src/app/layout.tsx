@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -10,8 +11,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Simply Url - Reduza links",
-  description: "Simplifique seus links",
+  title: "Simply Url - Reduza e simplifique seus links",
+  description: "Reduza e simplifique seus links",
 };
 
 export default function RootLayout({
@@ -28,6 +29,7 @@ export default function RootLayout({
         }
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

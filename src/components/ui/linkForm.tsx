@@ -5,11 +5,14 @@ import { ShortLink } from "@/libs/utils/shortLink.interface";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import QRCodeComponent from "./qrcode";
+import { useToast } from "./use-toast";
 require("dotenv").config();
 
 export default function LinkForm() {
-  const [urlValue, setUrlValue] = useState<string | null>(null);
+  const { toast } = useToast();
 
+  const [urlValue, setUrlValue] = useState<string | null>(null);
+  const [urlValueUsed, setUrlValueUsed] = useState<string>("");
   const [urlShortedValue, setUrlShortedValue] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +28,7 @@ export default function LinkForm() {
       await copyToClipboard(urlShortedValue);
 
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 3000);
     }
   };
 
@@ -33,13 +36,17 @@ export default function LinkForm() {
     e.preventDefault();
     setError(null);
 
-    if (urlValue && isValidUrl(urlValue)) shortLink(urlValue);
-    else return setError("Link fornecido é inválido.");
+    if (urlValue && urlValue !== "") {
+      if (urlValue === urlValueUsed) return;
+
+      if (isValidUrl(urlValue)) shortLink(urlValue);
+      else setError("Link fornecido é inválido.");
+    }
   };
 
   const shortLink = async (urlValue: string) => {
-    setError(null);
     setIsLoading(true);
+    setError(null);
 
     const serverUrl = process.env.NEXT_PUBLIC_SERVERURL;
 
@@ -61,6 +68,8 @@ export default function LinkForm() {
 
       const data: ShortLink = await response.json();
       if (data) {
+        setUrlValueUsed(urlValue);
+
         setIsLoading(false);
 
         const finalUrl = process.env.NEXT_PUBLIC_SERVERURL + "/" + data.url;
@@ -68,6 +77,12 @@ export default function LinkForm() {
       }
     } catch (error) {
       setIsLoading(false);
+
+      toast({
+        title: "Ocorreu um erro",
+        description: "Tente novamente mais tarde!",
+        variant: "destructive",
+      });
       console.error("Erro ao encurtar o link:", error);
     }
   };
@@ -94,7 +109,7 @@ export default function LinkForm() {
         {error ? <p className="text-sm ">{error}</p> : ""}
         <button
           className={`p-4 text-md bg-violet-800 hover:bg-violet-900 font-bold rounded-lg flex flex-row justify-center items-center gap-3 drop-shadow-lg shadow-xl uppercase leading-[16.41px] transition-colors
-            ${isLoading ? "animate-pulse" : ""}
+            ${isLoading ? "animate-pulse cursor-wait" : ""}
           `}
           disabled={isLoading}
           type="submit"
@@ -139,8 +154,11 @@ export default function LinkForm() {
                   )}
                 </button>
 
-                <button className="p-2 text-white bg-violet-800 hover:bg-violet-900 hover:text-white/80 font-bold rounded-lg flex flex-row justify-center items-center gap-3 drop-shadow-lg shadow-xl uppercase leading-[16.41px]"
-                  onClick={() => {setShowQrCode(!showQrCode)}}
+                <button
+                  className="p-2 text-white bg-violet-800 hover:bg-violet-900 hover:text-white/80 font-bold rounded-lg flex flex-row justify-center items-center gap-3 drop-shadow-lg shadow-xl uppercase leading-[16.41px]"
+                  onClick={() => {
+                    setShowQrCode(!showQrCode);
+                  }}
                 >
                   <Icon icon="ic:round-qrcode" className=" align-middle" />
                 </button>

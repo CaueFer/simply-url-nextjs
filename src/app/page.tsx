@@ -1,9 +1,9 @@
 import DefaultFooter from "@/components/layout/footer";
 import Nav from "@/components/layout/nav";
 import LinkForm from "@/components/ui/linkForm";
-import { useState } from "react";
 
 export default function Home() {
+
   return (
     <>
       <Nav />
@@ -15,7 +15,7 @@ export default function Home() {
           </h1>
         </div>
 
-        <LinkForm ></LinkForm>
+        <LinkForm></LinkForm>
       </main>
       <DefaultFooter />
     </>

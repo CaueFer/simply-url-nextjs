@@ -9,14 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
     "@iconify/react": "^5.0.2",
+    "@mui/material": "^5.16.7",
+    "@radix-ui/react-toast": "^1.2.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
+    "lucide-react": "^0.427.0",
     "mongoose": "^8.5.2",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
     "react-qr-code": "^2.0.15",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
