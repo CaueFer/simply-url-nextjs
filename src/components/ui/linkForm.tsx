@@ -103,7 +103,7 @@ export default function LinkForm() {
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-[100%]">
         <input
-          className="p-5 text-md bg-gray-800 text-white opacity-80 rounded-lg font-normal"
+          className="p-5 text-md bg-gray-800 text-white opacity-80 rounded-lg font-normal focus-visible:outline-sky-50"
           type="text"
           placeholder="Digite ou cole uma url aqui..."
           value={urlValue ? urlValue : ""}

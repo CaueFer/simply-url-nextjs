@@ -8,7 +8,7 @@ export default function Nav() {
   const currentPath = usePathname();
 
   return (
-    <div className="absolute top-0 inset-x-0 p-8 max-w-7xl mx-auto flex flex-row justify-between bg-transparent text-white z-40">
+    <div className="absolute top-0 inset-x-0 py-8 px-10 md:px-20 max-w-7xl mx-auto flex flex-row justify-between bg-transparent text-white z-40">
       <p
         className="text-xl cursor-pointer"
         onClick={() => {
