@@ -38,7 +38,7 @@ export default function Nav() {
             ${currentPath === "/pricing" ? "border-b" : ""}
             `}
         >
-          Analytics
+          Planos
         </Link>
       </div>
     </div>

@@ -6,9 +6,12 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 import QRCodeComponent from "./qrcode";
 import { useToast } from "./use-toast";
+import { useRouter } from "next/navigation";
 require("dotenv").config();
 
 export default function LinkForm() {
+  const router = useRouter();
+
   const { toast } = useToast();
 
   const [urlValue, setUrlValue] = useState<string | null>(null);
@@ -168,12 +171,10 @@ export default function LinkForm() {
               ) : (
                 <div className="w-full h-[100px] flex flex-col justify-end items-center gap-6 pb-6">
                   <div className="flex flex-row gap-2 justify-center items-center px-4 py-2 bg-violet-800 hover:bg-violet-900 rounded-lg cursor-pointer">
-                    <h2 className="uppercase text-xs font-bold">
-                      Customizar url{" "}
+                    <h2 className="uppercase text-xs font-bold" onClick={() => {router.push('/pricing')}}>
+                      Customizar url
                     </h2>
-                    <Icon icon="tabler:edit" className="text-md">
-                      {" "}
-                    </Icon>
+                    <Icon icon="tabler:edit" className="text-md"/>
                   </div>
                 </div>
               )}
