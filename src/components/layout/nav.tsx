@@ -30,12 +30,12 @@ export default function Nav() {
           Simplificar
         </Link>
         <Link
-          href="/analyics"
+          href="/pricing"
           style={{
-            color: currentPath === "/analyics" ? "white" : "",
+            color: currentPath === "/pricing" ? "white" : "",
           }}
           className={` border-white
-            ${currentPath === "/analyics" ? "border-b" : ""}
+            ${currentPath === "/pricing" ? "border-b" : ""}
             `}
         >
           Analytics

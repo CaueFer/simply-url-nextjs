@@ -1,7 +1,7 @@
 "use client";
 
-import useCopyToClipboard from "@/libs/hooks/useCopyToClipboard";
-import { ShortLink } from "@/libs/utils/shortLink.interface";
+import useCopyToClipboard from "@/lib/hooks/useCopyToClipboard";
+import { ShortLink } from "@/lib/utils/shortLink.interface";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import QRCodeComponent from "./qrcode";
@@ -166,7 +166,16 @@ export default function LinkForm() {
               {showQrCode && urlShortedValue ? (
                 <QRCodeComponent value={urlShortedValue} size={230} />
               ) : (
-                ""
+                <div className="w-full h-[100px] flex flex-col justify-end items-center gap-6 pb-6">
+                  <div className="flex flex-row gap-2 justify-center items-center px-4 py-2 bg-violet-800 hover:bg-violet-900 rounded-lg cursor-pointer">
+                    <h2 className="uppercase text-xs font-bold">
+                      Customizar url{" "}
+                    </h2>
+                    <Icon icon="tabler:edit" className="text-md">
+                      {" "}
+                    </Icon>
+                  </div>
+                </div>
               )}
             </div>
           </div>
