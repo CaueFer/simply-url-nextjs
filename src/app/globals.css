@@ -79,9 +79,9 @@
   }
 }
 
-@keyframes collapse {
+@keyframes collapse-ani {
   from {
-    max-height: 350px;
+    max-height: 650px;
     opacity: 1;
   }
   to {
@@ -101,5 +101,5 @@
 }
 
 .accordion-content-collapse {
-  animation: collapse 1.5s ease-in forwards;
+  animation: collapse-ani 1.5s ease-in forwards;
 }

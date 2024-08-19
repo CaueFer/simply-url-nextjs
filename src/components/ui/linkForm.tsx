@@ -7,6 +7,7 @@ import { useState } from "react";
 import QRCodeComponent from "./qrcode";
 import { useToast } from "./use-toast";
 import { useRouter } from "next/navigation";
+import { TooltipCustom } from "./tooltipCustom";
 require("dotenv").config();
 
 export default function LinkForm() {
@@ -39,17 +40,40 @@ export default function LinkForm() {
     e.preventDefault();
     setError(null);
 
-    if (urlValue && urlValue !== "") {
-      if (urlValue === urlValueUsed) return;
+    if (!urlValue || urlValue === "")
+      return setError("Digite uma URL para simplificar.");
 
-      if (isValidUrl(urlValue)) shortLink(urlValue);
-      else setError("Link fornecido é inválido.");
-    }
+    if (urlValue === urlValueUsed) return;
+
+    if (isValidUrl(urlValue)) shortLink(urlValue);
+    else setError("Link fornecido é inválido.");
+
+    // if (isValidUrl(urlValue)) fakeFetch(urlValue);
+    // else setError("Link fornecido é inválido.");
+  };
+
+  const fakeFetch = async (urlValue: string) => {
+    setIsLoading(true);
+    setError(null);
+    setUrlShortedValue(null);
+
+    // FAKE DELAY
+    await new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
+
+    setIsLoading(false);
+
+    const finalUrl = process.env.NEXT_PUBLIC_SERVERURL + "/" + urlValue;
+    setUrlShortedValue(finalUrl);
   };
 
   const shortLink = async (urlValue: string) => {
     setIsLoading(true);
     setError(null);
+    setUrlShortedValue(null);
 
     const serverUrl = process.env.NEXT_PUBLIC_SERVERURL;
 
@@ -140,45 +164,80 @@ export default function LinkForm() {
             <h1 className="uppercase text-xs font-bold">
               Seu link simplificado{" "}
             </h1>
-            <div className="flex flex-col justify-center items-center gap-3 text-xl">
-              <h2>{urlShortedValue}</h2>
-              <div className="flex gap-3 text-md">
-                <button
-                  className="p-2 text-white bg-violet-800 hover:bg-violet-900 hover:text-white/80 font-bold rounded-lg flex flex-row justify-center items-center gap-3 drop-shadow-lg shadow-xl uppercase leading-[16.41px]"
-                  onClick={handleCopy}
-                >
-                  {copied ? (
-                    <Icon
-                      icon="material-symbols:check"
-                      className=" align-middle"
-                    />
-                  ) : (
-                    <Icon icon="clarity:copy-solid" className=" align-middle" />
-                  )}
-                </button>
+            <h2 className="text-2xl">{urlShortedValue}</h2>
 
-                <button
-                  className="p-2 text-white bg-violet-800 hover:bg-violet-900 hover:text-white/80 font-bold rounded-lg flex flex-row justify-center items-center gap-3 drop-shadow-lg shadow-xl uppercase leading-[16.41px]"
-                  onClick={() => {
-                    setShowQrCode(!showQrCode);
-                  }}
-                >
-                  <Icon icon="ic:round-qrcode" className=" align-middle" />
+            <div className="w-full flex flex-row justify-between items-center text-md">
+              <div className="flex flex-row gap-3">
+                {/* OPEN URL */}
+                <TooltipCustom value="Abrir link">
+                  <button
+                    className="p-2 text-white bg-violet-800 hover:bg-violet-900 hover:text-white/80 font-bold rounded-lg flex flex-row justify-center items-center gap-3 drop-shadow-lg shadow-xl uppercase leading-[16.41px]"
+                    onClick={() => {
+                      router.push(urlShortedValue);
+                    }}
+                  >
+                    <Icon
+                      icon="pepicons-pop:open"
+                      className=" align-middle text-2xl"
+                    />
+                  </button>
+                </TooltipCustom>
+
+                {/* COPY URL */}
+                <TooltipCustom value="Copiar">
+                  <button
+                    className="p-2 text-white bg-violet-800 hover:bg-violet-900 hover:text-white/80 font-bold rounded-lg flex flex-row justify-center items-center gap-3 drop-shadow-lg shadow-xl uppercase leading-[16.41px]"
+                    onClick={handleCopy}
+                  >
+                    {copied ? (
+                      <Icon
+                        icon="material-symbols:check"
+                        className=" align-middle text-xl"
+                      />
+                    ) : (
+                      <Icon
+                        icon="clarity:copy-solid"
+                        className=" align-middle text-xl"
+                      />
+                    )}
+                  </button>
+                </TooltipCustom>
+
+                {/* SHOW QR */}
+                <TooltipCustom value="Gerar QRCode">
+                  <button
+                    className="p-2 text-white bg-violet-800 hover:bg-violet-900 hover:text-white/80 font-bold rounded-lg flex flex-row justify-center items-center gap-3 drop-shadow-lg shadow-xl uppercase leading-[16.41px]"
+                    onClick={() => {
+                      setShowQrCode(!showQrCode);
+                    }}
+                  >
+                    <Icon
+                      icon="ic:round-qrcode"
+                      className=" align-middle text-xl"
+                    />
+                  </button>
+                </TooltipCustom>
+              </div>
+
+              <div className="flex flex-col justify-center items-start gap-6">
+                <button className="flex flex-row gap-2 justify-center items-center px-4 py-2 bg-slate-50 text-violet-800 hover:bg-slate-200 rounded-lg cursor-pointer">
+                  <h2
+                    className="uppercase text-sm font-extrabold"
+                    onClick={() => {
+                      router.push("/pricing");
+                    }}
+                  >
+                    Customizar url
+                  </h2>
+                  <Icon icon="ri:gemini-fill" className="text-md" />
                 </button>
               </div>
-              {showQrCode && urlShortedValue ? (
-                <QRCodeComponent value={urlShortedValue} size={230} />
-              ) : (
-                <div className="w-full h-[100px] flex flex-col justify-end items-center gap-6 pb-6">
-                  <div className="flex flex-row gap-2 justify-center items-center px-4 py-2 bg-violet-800 hover:bg-violet-900 rounded-lg cursor-pointer">
-                    <h2 className="uppercase text-xs font-bold" onClick={() => {router.push('/pricing')}}>
-                      Customizar url
-                    </h2>
-                    <Icon icon="tabler:edit" className="text-md"/>
-                  </div>
-                </div>
-              )}
             </div>
+            {showQrCode && urlShortedValue ? (
+              <QRCodeComponent value={urlShortedValue} size={230} />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       ) : (
