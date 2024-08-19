@@ -25,7 +25,7 @@ export default function RootLayout({
       <body
         className={
           roboto.className +
-          " bg-gradient-to-tr from-theme-dark to-theme-dark-sec flex flex-col justify-center items-center"
+          " bg-gradient-to-tr from-black via-theme-dark via-25% to-theme-dark-sec flex flex-col justify-center items-center"
         }
       >
         {children}
