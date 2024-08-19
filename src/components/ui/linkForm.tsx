@@ -123,6 +123,10 @@ export default function LinkForm() {
     }
   };
 
+  const openInNewTab = (urlShortenedValue: string) => {
+    window.open(urlShortenedValue, "_blank");
+  };
+  
   return (
     <>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-[100%]">
@@ -173,7 +177,7 @@ export default function LinkForm() {
                   <button
                     className="p-2 text-white bg-violet-800 hover:bg-violet-900 hover:text-white/80 font-bold rounded-lg flex flex-row justify-center items-center gap-3 drop-shadow-lg shadow-xl uppercase leading-[16.41px]"
                     onClick={() => {
-                      router.push(urlShortedValue);
+                      openInNewTab(urlShortedValue);
                     }}
                   >
                     <Icon
