@@ -27,7 +27,7 @@ export default function Pricing() {
 
             <div className="space-y-8 xl:grid xl:grid-cols-3 sm:gap-6 xl:gap-10 xl:space-y-0">
               <div className="mx-auto max-w-sm min-w-[320px] max-h-[600px] bg-gradient-to-br from-violet-700 via-black to-violet-950 p-[1px] rounded-3xl drop-shadow-lg shadow hover:scale-[1.05] transition-transform duration-300">
-                <div className="flex flex-col p-10 text-center rounded-3xl bg-black/90 text-white">
+                <div className="flex flex-col p-10 text-center rounded-3xl bg-theme-dark/90 text-white">
                   <h3 className="mb-4 text-xl font-semibold text-start uppercase">
                     Starter
                   </h3>
@@ -145,7 +145,7 @@ export default function Pricing() {
               </div>
 
               <div className="mx-auto max-w-sm min-w-[320px] max-h-[600px] bg-gradient-to-br from-violet-400 via-black to-violet-700 p-[1px] rounded-3xl drop-shadow-lg shadow hover:scale-[1.05] transition-transform duration-300">
-                <div className="flex flex-col p-10 text-center rounded-3xl bg-black/90 text-white">
+                <div className="flex flex-col p-10 text-center rounded-3xl bg-theme-dark/90 text-white">
                   <h3 className="mb-4 text-xl font-semibold text-start uppercase">
                     Company
                   </h3>
@@ -259,7 +259,7 @@ export default function Pricing() {
               </div>
 
               <div className="mx-auto max-w-sm min-w-[320px] max-h-[600px] bg-gradient-to-br from-violet-950 via-black to-violet-700 p-[1px] rounded-3xl drop-shadow-lg shadow hover:scale-[1.05] transition-transform duration-300">
-                <div className="flex flex-col p-10 text-center rounded-3xl bg-black/90 text-white">
+                <div className="flex flex-col p-10 text-center rounded-3xl bg-theme-dark/90 text-white">
                   <h3 className="mb-4 text-xl font-semibold text-start uppercase">
                     Enterprise
                   </h3>
